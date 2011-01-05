@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'spec_helper.rb')
 
 class MemcachedManifest < Moonshine::Manifest::Rails
-  plugin :memcached
+  include Moonshine::Memcached
 end
 
 describe "A manifest with the Memcached plugin" do
