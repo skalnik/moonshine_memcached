@@ -30,6 +30,15 @@ describe "A manifest with the Memcached plugin" do
     @manifest.files['/etc/memcached.conf'].should_not be(nil)
   end
 
+  it "should enable memcached in by default" do
+    @manifest.files['/etc/default/memcached'].content.should =~ /ENABLE_MEMCACHED=yes/
+  end
+
+  it "should disable memcached if set" do
+    @manifest.memcached(:enabled => false)
+    @manifest.files['/etc/default/memcached'].content.should =~ /ENABLE_MEMCACHED=no/
+  end
+
   it "should install the Ruby client library for memcached iff the option is given" do
     @manifest.packages.keys.should_not include('memcache-client')
 
